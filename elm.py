@@ -10,10 +10,11 @@ import scipy
 import time
 from plotly.grid_objs import Grid, Column
 import plotly
-from wordcloud import WordCloud
 import json
 import csv
-
+from nltk.tokenize import word_tokenize
+import nltk
+from nltk.sentiment.vader import SentimentIntensityAnalyzer
 
 #downloaded data
 data_elonmusk=pd.read_csv('/users/alyonarodin/Desktop/elonmusk.csv', encoding ='latin1')
@@ -38,6 +39,51 @@ stop=stopwords.words('english')
 data_elonmusk['Tweet']=data_elonmusk['Tweet'].apply(lambda x: " ".join(x for x in x.split() if x not in stop))
 print(data_elonmusk['Tweet'].head())
 
+# we defined each tweet as negative, positive and neutral
+tweets=[tweet for tweet in data_elonmusk['Tweet']]    
+print(tweets[1:4])
+
+# defined each tweet as positive, negative or neutral
+dict_tweets={}
+for sentence in tweets:
+    sid = SentimentIntensityAnalyzer()
+    ss=sid.polarity_scores(sentence)
+    
+    for k in ss:
+        
+        print('{0}: {1}, '.format(k,ss[k]),end='')
+    #print(ss[k]) 
+   
+    q=ss[k] 
+    
+    if q==0.0:
+        dict_tweets[sentence]='neu'
+    elif q>0.0:
+        dict_tweets[sentence]='pos'
+    elif q<0.0:
+        dict_tweets[sentence]='neg'
+#print(dict_tweets)
+#print(list(dict_tweets))
+list_pos_neg=[]
+for value in dict_tweets:
+     list_pos_neg.append(dict_tweets[value])
+#print(list_pos_neg[1:4])
+
+
+#created table that contatins tweets, date, and if the sentence positive/negative
+DF_list_tweets=pd.DataFrame(list(zip(data_elonmusk['Tweet'], data_elonmusk['Time'],list_pos_neg)), columns=['tweet','time', 'pos/neg/neu'])
+#print(DF_list_tweets)
+
+#converted the table to json file to plot in tableau
+tweet_json=DF_list_tweets.to_json(orient='table')
+print(tweet_json)
+outfile = open("/Users/alyonarodin/Desktop/plotly_em/twitter_neg_pos_json.json", "w")
+
+outfile.write(tweet_json)
+outfile.close()
+
+
+
 #the most common words
 freq = pd.Series(' '.join(data_elonmusk['Tweet']).split()).value_counts()[:40]
 print(freq)
@@ -51,10 +97,6 @@ outfile = open("/Users/alyonarodin/Desktop/plotly_em/twitter_elm_json.json", "w"
 
 outfile.write(freq_json)
 outfile.close()    
-
-
-
-
 
 #calcualated the different of using the most frequent words and other words of the 4 most frequent words
 number=freq[0]
@@ -88,10 +130,6 @@ layout=go.Layout(
 fig = go.Figure(data=data, layout=layout)   
 #plotted  with Plotly
 plot(fig, filename='word frequency')
-
-
-
-
 
 
 #splitted data and time
@@ -193,9 +231,7 @@ outfile=open("/Users/alyonarodin/Desktop/plotly_em/twitter_data.json", "w")
 outfile.write(twitter_data)
 outfile.close()
 
-
-
-
+#second Plot made in plotly
 
 spacex=[]
 count=0
@@ -205,7 +241,7 @@ for sx in freq_2017.index:
             count+=1
         else:
             count+=1
-#count=0  
+count=0  
 for sx in freq_2016.index:               
         if sx=='spacex':              
             spacex.append(freq_2016[count])
