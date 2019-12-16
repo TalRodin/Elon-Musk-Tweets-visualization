@@ -7,7 +7,16 @@ Keywords: Machine Learning; Tweeter; tweet; return; Tesla; SpaceX, Sentiment Ana
 
 I.  INTRODUCTION
 
-     The purpose of the report to identify how our communication or participation on SM effects the opinions about us, or<br/> business, etc. Why I chose tweets and stock prices? The reason of this choice is that the traders have to react fast on the<br/> information they were provided to make a decision regarding the selling or buying what gives the positive or negative<br/> return (outcome). The same happens when we read a tweet or see the picture, our brain makes very quickly<br/> conclusions about the issue, person, subject matter without preprocessing information, researching it. As we react so quickly<br/> to all around us we can be easily get trapped to see the reality be it in communication with another person,<br/> relationship, etc. At the beginning of the project, we look at the tweets which were posted by EM. We define how actively he<br/> participates on the social media – how often he posted tweets per day, how often he retweets the messages, what words<br/> the tweets contain the most, and also perform sentiment analyses to determine if those tweets were positive, negative, or just neutral. Given the information about the tweets as well the returns on the Tesla stocks we try to identify<br/> if the tweet posting indeed effect the prices and accordingly the return, the growth of the company. 
+     The purpose of the report to identify how our communication or participation on SM effects the opinions about us, or
+     business, etc. Why I chose tweets and stock prices? The reason of this choice is that the traders have to react fast on the
+     information they were provided to make a decision regarding the selling or buying what gives the positive or negative
+     return (outcome). The same happens when we read a tweet or see the picture, our brain makes very quickly
+     conclusions about the issue, person, subject matter without preprocessing information, researching it. As we react so quickly 
+     to all around us we can be easily get trapped to see the reality be it in communication with another person,
+     relationship, etc. At the beginning of the project, we look at the tweets which were posted by EM. We define how actively he
+     participates on the social media – how often he posted tweets per day, how often he retweets the messages, what words
+     the tweets contain the most, and also perform sentiment analyses to determine if those tweets were positive, negative, or just neutral. Given the information about the tweets as well the returns on the Tesla stocks we try to identify
+     if the tweet posting indeed effect the prices and accordingly the return, the growth of the company. 
 
 
 II.  DATA COLLECTION AND PREPROCESSING
